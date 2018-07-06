@@ -7,7 +7,7 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace ServiceProvider\Sentinel;
+namespace FastD\RegistryProvider;
 
 
 use FastD\Utils\ArrayObject;

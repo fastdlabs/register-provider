@@ -7,7 +7,7 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace ServiceProvider\Sentinel\Console;
+namespace FastD\RegistryProvider\Console;
 
 
 use FastD\Packet\Json;
@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class SentinelCommand
  * @package ServiceProvider\Sentinel\Console
  */
-class SentinelCommand extends Command
+class RegistryCommand extends Command
 {
     /**
      * @var Client
@@ -29,16 +29,16 @@ class SentinelCommand extends Command
     protected $client;
 
     protected $uris = [
-        'list' => ['GET', '/v1/services'],
-        'show' => ['GET', '/v1/services/'],
-        'del' => ['DELETE', '/v1/services/'],
-        'stop' => ['PUT', '/v1/services/'],
-        'status' => ['GET', '/v1/status'],
+        'list'      => ['GET', '/services'],
+        'show'      => ['GET', '/services/'],
+        'del'       => ['DELETE', '/services/'],
+        'stop'      => ['PUT', '/services/'],
+        'status'    => ['GET', '/status'],
     ];
 
     protected function configure()
     {
-        $this->setName('sentinel');
+        $this->setName('registry');
         $this->addArgument('action');
         $this->addArgument('name', InputArgument::OPTIONAL);
     }

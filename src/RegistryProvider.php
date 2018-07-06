@@ -7,18 +7,18 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace ServiceProvider\Sentinel;
+namespace FastD\RegistryProvider;
 
 
 use FastD\Container\Container;
 use FastD\Container\ServiceProviderInterface;
-use ServiceProvider\Sentinel\Console\SentinelCommand;
+use FastD\RegistryProvider\Console\RegistryCommand;
 
 /**
  * Class Sentinel
  * @package ServiceProvider\Sentinel
  */
-class SentinelProvider implements ServiceProviderInterface
+class RegistryProvider implements ServiceProviderInterface
 {
     /**
      * @param Container $container
@@ -28,7 +28,7 @@ class SentinelProvider implements ServiceProviderInterface
     {
         config()->merge([
             'consoles' => [
-                SentinelCommand::class,
+                RegistryCommand::class,
             ],
         ]);
     }

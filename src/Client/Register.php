@@ -7,26 +7,24 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace ServiceProvider\Sentinel\Client;
+namespace FastD\RegistryProvider\Client;
 
 
 use FastD\Packet\Json;
+use FastD\RegistryProvider\ServerStatus;
 use FastD\Swoole\Client;
 use swoole_client;
-use ServiceProvider\Sentinel\ServerStatus;
 
 /**
  * Class Alive
  * @package ServiceProvider\Sentinel
  */
-class Alive extends Client
+class Register extends Client
 {
     /**
      * @var array
      */
     protected $config = [];
-
-    protected $data_packet = [];
 
     /**
      * Alive constructor.
@@ -46,7 +44,7 @@ class Alive extends Client
     {
         $packet = Json::encode([
             'method' => 'POST',
-            'path' => '/v1/services',
+            'path' => '/services',
             'args' => ServerStatus::make()->getArrayCopy()
         ]);
 

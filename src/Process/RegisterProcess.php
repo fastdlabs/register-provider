@@ -7,19 +7,19 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace ServiceProvider\Sentinel\Process;
+namespace FastD\RegistryProvider\Process;
 
 
 use FastD\Process\AbstractProcess;
+use FastD\RegistryProvider\Client\Register;
 use RuntimeException;
-use ServiceProvider\Sentinel\Client\Alive;
 use swoole_process;
 
 /**
  * Class SentinelProcess
  * @package ServiceProvider\Sentinel\Process
  */
-class SentinelProcess extends AbstractProcess
+class RegisterProcess extends AbstractProcess
 {
     /**
      * @param swoole_process $swoole_process
@@ -31,7 +31,7 @@ class SentinelProcess extends AbstractProcess
             throw new RuntimeException(sprintf('register address url cannot be setting.'));
         }
 
-        $client = new Alive(config()->get('registry'));
+        $client = new Register(config()->get('registry'));
 
         $client->start();
     }
