@@ -53,8 +53,6 @@ class Register extends Client
 
     public function onReceive(swoole_client $client, $data)
     {
-        $data = Json::decode($data);
-        $data = json_encode($data, JSON_PRETTY_PRINT);
         echo "接收信息: ".$data.PHP_EOL;
     }
 
@@ -62,13 +60,11 @@ class Register extends Client
     {
         echo '连接失败'.PHP_EOL;
         //服务注册失败稍后再试
-        $this->timeAfter();
     }
 
     public function onClose(swoole_client $client)
     {
         echo '连接断开'.PHP_EOL;
         //服务注册断开稍后再试
-        $this->timeAfter();
     }
 }
