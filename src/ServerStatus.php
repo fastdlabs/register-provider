@@ -53,6 +53,6 @@ class ServerStatus extends ArrayObject
      */
     public function flushState()
     {
-        return app()->has('server') ? swoole()->state() : [];
+        return app()->has('server') ? swoole()->stats() : [];
     }
 }
