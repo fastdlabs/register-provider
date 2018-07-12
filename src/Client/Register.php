@@ -16,11 +16,14 @@ use FastD\Swoole\Client;
 use swoole_client;
 
 /**
- * Class Alive
- * @package ServiceProvider\Sentinel
+ * Class Register
+ * @package ServiceProvider\RegisterProvider
  */
 class Register extends Client
 {
+    protected $try_count = 0;
+    protected $max_try_count = 10;
+
     /**
      * @var array
      */
@@ -36,12 +39,28 @@ class Register extends Client
     }
 
     /**
+     * 断线重连
+     */
+    public function tryReconnect()
+    {
+        if ($this->try_count <= $this->max_try_count) {
+            echo 'try connecting: '.$this->try_count.PHP_EOL;
+            $this->connect();
+            $this->try_count++;
+            sleep(1);
+        }
+    }
+
+    /**
+     * 向注册中心注册服务节点
+     *
      * @param swoole_client $client
      * @return mixed|void
      * @throws \FastD\Packet\Exceptions\PacketException
      */
     public function onConnect(swoole_client $client)
     {
+        $this->try_count = 0;
         $packet = Json::encode([
             'method' => 'POST',
             'path' => '/services',
@@ -51,20 +70,35 @@ class Register extends Client
         $client->send($packet);
     }
 
-    public function onReceive(swoole_client $client, $data)
-    {
-        echo "接收信息: ".$data.PHP_EOL;
-    }
+    /**
+     * 向服务发现注册服务节点，对接收的信息不产生处理。
+     *
+     * @param swoole_client $client
+     * @param string $data
+     * @return mixed|void
+     */
+    public function onReceive(swoole_client $client, $data) {}
 
+    /**
+     * 输出错误信息
+     * 判断错误信息发起重连
+     *
+     * @param swoole_client $client
+     * @return mixed|void
+     */
     public function onError(swoole_client $client)
     {
-        echo '连接失败'.PHP_EOL;
-        //服务注册失败稍后再试
+        $this->tryReconnect();
     }
 
+    /**
+     * 连接关闭，发起重连
+     *
+     * @param swoole_client $client
+     * @return mixed|void
+     */
     public function onClose(swoole_client $client)
     {
-        echo '连接断开'.PHP_EOL;
-        //服务注册断开稍后再试
+        $this->tryReconnect();
     }
 }

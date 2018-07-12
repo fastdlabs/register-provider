@@ -10,6 +10,7 @@
 namespace FastD\RegistryProvider;
 
 
+use FastD\Http\Uri;
 use FastD\Utils\ArrayObject;
 
 /**
@@ -27,17 +28,32 @@ class ServerStatus extends ArrayObject
             ]);
         }
 
+        $host = config()->get('server.host');
+        $uri = new Uri($host);
+        $config['ip'] = get_local_ip();
         $config['service_name'] = config()->get('name');
-        $config['service_host'] = config()->get('server.host');
-        $config['service_protocol'] = '';
-        $config['service_port'] = '';
+        $config['service_host'] = $uri->getHost();
+        $config['service_protocol'] = ('' == $uri->getScheme() ? 'http' : $uri->getScheme());
+        $config['service_port'] = $uri->getPort();
         $config['service_pid'] = !file_exists(config()->get('server.options.pid_file')) ?
             '' : file_get_contents(config()->get('server.options.pid_file'));
-        $config['process_number'] = '';
         $config['server']['options'] = config()->get('server.options');
         $config['status'] = $this->flushState();
+        $config['routes'] = $this->routes();
 
         parent::__construct($config);
+    }
+
+    public function routes()
+    {
+        $routes = [];
+        foreach (route()->aliasMap as $map) {
+            foreach ($map as $key => $route) {
+                $routes[$key] = [$route->getMethod(), $route->getPath()];
+            }
+
+        }
+        return $routes;
     }
 
     /**
