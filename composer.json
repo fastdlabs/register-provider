@@ -1,5 +1,5 @@
 {
-    "name": "fastdlabs/registry-provider",
+    "name": "fastd/registry-provider",
     "require": {
         "php": ">=5.6",
         "fastd/fastd": "^3.1"
