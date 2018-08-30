@@ -9,7 +9,6 @@
 
 namespace FastD\RegistryProvider\Client;
 
-
 use FastD\Packet\Json;
 use FastD\RegistryProvider\ServerStatus;
 use FastD\Swoole\Client;
@@ -22,6 +21,7 @@ use swoole_client;
 class Register extends Client
 {
     protected $try_count = 0;
+    protected $error_count = 0;
     protected $max_try_count = 10;
 
     /**
@@ -44,10 +44,11 @@ class Register extends Client
     public function tryReconnect()
     {
         if ($this->try_count <= $this->max_try_count) {
-            echo 'try connecting: '.$this->try_count.PHP_EOL;
+            echo 'try connecting: ' . $this->try_count . PHP_EOL;
             $this->connect();
             $this->try_count++;
-            sleep(1);
+            // 休眠时间递增
+            sleep($this->try_count * 2 - 1);
         }
     }
 
@@ -67,7 +68,14 @@ class Register extends Client
             'args' => ServerStatus::make()->getArrayCopy()
         ]);
 
-        $client->send($packet);
+        // 定时上报最新数据
+        timer_tick(5000, function ($id) use ($client, $packet) {
+            if ($this->client->isConnected() && false !== $client->send($packet)) {
+                $this->try_count = 0;
+            } else {
+                timer_clear($id);
+            }
+        });
     }
 
     /**
@@ -77,7 +85,9 @@ class Register extends Client
      * @param string $data
      * @return mixed|void
      */
-    public function onReceive(swoole_client $client, $data) {}
+    public function onReceive(swoole_client $client, $data)
+    {
+    }
 
     /**
      * 输出错误信息

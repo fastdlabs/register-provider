@@ -9,7 +9,6 @@
 
 namespace FastD\RegistryProvider;
 
-
 use FastD\Container\Container;
 use FastD\Container\ServiceProviderInterface;
 use FastD\RegistryProvider\Console\RegistryCommand;

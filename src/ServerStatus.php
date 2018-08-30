@@ -9,7 +9,6 @@
 
 namespace FastD\RegistryProvider;
 
-
 use FastD\Http\Uri;
 use FastD\Utils\ArrayObject;
 

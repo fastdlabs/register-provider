@@ -9,7 +9,6 @@
 
 namespace FastD\RegistryProvider\Console;
 
-
 use FastD\Packet\Json;
 use FastD\Servitization\Client\Client;
 use Symfony\Component\Console\Command\Command;

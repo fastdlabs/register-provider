@@ -9,7 +9,6 @@
 
 namespace FastD\RegistryProvider\Process;
 
-
 use FastD\Process\AbstractProcess;
 use FastD\RegistryProvider\Client\Register;
 use RuntimeException;
