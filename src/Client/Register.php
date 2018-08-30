@@ -62,14 +62,14 @@ class Register extends Client
     public function onConnect(swoole_client $client)
     {
         $this->try_count = 0;
-        $packet = Json::encode([
-            'method' => 'POST',
-            'path' => '/services',
-            'args' => ServerStatus::make()->getArrayCopy()
-        ]);
 
         // 定时上报最新数据
-        timer_tick(5000, function ($id) use ($client, $packet) {
+        timer_tick(5000, function ($id) use ($client) {
+            $packet = Json::encode([
+                'method' => 'POST',
+                'path' => '/services',
+                'args' => ServerStatus::make()->getArrayCopy()
+            ]);
             if ($this->client->isConnected() && false !== $client->send($packet)) {
                 $this->try_count = 0;
             } else {
