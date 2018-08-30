@@ -7,7 +7,7 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace FastD\RegistryProvider;
+namespace LinghitExts\RegistryProvider;
 
 use FastD\Container\Container;
 use FastD\Container\ServiceProviderInterface;
