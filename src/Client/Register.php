@@ -70,9 +70,13 @@ class Register extends Client
                 'path' => '/services',
                 'args' => ServerStatus::make()->getArrayCopy()
             ]);
-            if ($this->client->isConnected() && false !== $client->send($packet)) {
-                $this->try_count = 0;
-            } else {
+            try {
+                if ($this->client->isConnected() && false !== $client->send($packet)) {
+                    $this->try_count = 0;
+                } else {
+                    timer_clear($id);
+                }
+            } catch (\Exception $exception) {
                 timer_clear($id);
             }
         });
