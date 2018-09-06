@@ -30,6 +30,8 @@ class ServerStatus extends ArrayObject
         $host = config()->get('server.host');
         $uri = new Uri($host);
         $config['ip'] = get_local_ip();
+        $config['environment'] = config()->get('environment', 'develop');
+        $config['service_name'] = config()->get('name');
         $config['service_name'] = config()->get('name');
         $config['service_host'] = $uri->getHost();
         $config['service_protocol'] = ('' == $uri->getScheme() ? 'http' : $uri->getScheme());
