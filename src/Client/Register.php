@@ -71,12 +71,20 @@ class Register extends Client
                 'args' => ServerStatus::make()->getArrayCopy()
             ]);
             try {
-                if ($this->client->isConnected() && false !== $client->send($packet)) {
-                    $this->try_count = 0;
-                } else {
+                if (!$this->client->isConnected()) {
+                    $this->error_count = 0;
+                    echo '连接断开', PHP_EOL;
+                    timer_clear($id);
+                } elseif (false === $client->send($packet)) {
+                    $this->error_count = 0;
+                    echo '发送失败', PHP_EOL;
                     timer_clear($id);
                 }
             } catch (\Exception $exception) {
+                echo $exception->getMessage(), PHP_EOL;
+                $this->error_count = 0;
+                echo '异常', PHP_EOL;
+
                 timer_clear($id);
             }
         });
