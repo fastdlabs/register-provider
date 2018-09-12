@@ -14,8 +14,8 @@ FastD sentinel
 <?php
 
 return [
-    'registry' => qconf_get_values('/conf/services/common/registry/tcp', null, null, [
-        'host' => 'tcp://112.124.34.87:9986',
+    'registry' => qconf_get_values('/zookeeper path', null, null, [
+        'host' => 'tcp://registry host',
         //连接重试间隔，时间单位ms
         'retry_interval' => 1000,
     ]),
