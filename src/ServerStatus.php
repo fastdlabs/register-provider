@@ -7,7 +7,7 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace LinghitExts\RegistryProvider;
+namespace FastD\RegistryProvider;
 
 use FastD\Http\Uri;
 use FastD\Utils\ArrayObject;

@@ -33,7 +33,7 @@ host 为发现服务器接受数据的地址，由 fastd-register 启动 swoole 
  
  return [
      'sentinel' => [
-         'process' => \LinghitExts\RegistryProvider\Process\RegisterProcess::class,
+         'process' => \FastD\RegistryProvider\Process\RegisterProcess::class,
          'options' => [
  
          ],
@@ -52,7 +52,7 @@ host 为发现服务器接受数据的地址，由 fastd-register 启动 swoole 
 return [
     // some code
     'processes' => [
-        \LinghitExts\RegistryProvider\Process\RegisterProcess::class,
+        \FastD\RegistryProvider\Process\RegisterProcess::class,
     ],
     // some code
 ];

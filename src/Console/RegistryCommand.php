@@ -7,7 +7,7 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace LinghitExts\RegistryProvider\Console;
+namespace FastD\RegistryProvider\Console;
 
 use FastD\Packet\Json;
 use FastD\Servitization\Client\Client;

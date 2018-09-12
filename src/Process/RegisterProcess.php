@@ -7,10 +7,10 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace LinghitExts\RegistryProvider\Process;
+namespace FastD\RegistryProvider\Process;
 
 use FastD\Process\AbstractProcess;
-use LinghitExts\RegistryProvider\Client\Register;
+use FastD\RegistryProvider\Client\Register;
 use RuntimeException;
 use swoole_process;
 

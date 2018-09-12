@@ -1,5 +1,5 @@
 {
-    "name": "linghit-exts/registry-provider",
+    "name": "fastd/registry-provider",
     "require": {
         "php": ">=5.6",
         "fastd/fastd": "^3.1"
@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LinghitExts\\RegistryProvider\\": "src"
+            "FastD\\RegistryProvider\\": "src"
         }
     }
 }

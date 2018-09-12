@@ -7,11 +7,11 @@
  * @see      http://www.fastdlabs.com/
  */
 
-namespace LinghitExts\RegistryProvider\Client;
+namespace FastD\RegistryProvider\Client;
 
 use FastD\Packet\Json;
 use FastD\Swoole\Client;
-use LinghitExts\RegistryProvider\ServerStatus;
+use FastD\RegistryProvider\ServerStatus;
 use swoole_client;
 
 /**
