@@ -18,6 +18,7 @@ use FastD\Utils\ArrayObject;
  */
 class ServerStatus extends ArrayObject
 {
+
     public function __construct()
     {
         //配置不存在加载
@@ -33,7 +34,7 @@ class ServerStatus extends ArrayObject
         $config['environment'] = config()->get('environment', 'develop');
         $config['service_name'] = config()->get('name');
         $config['service_name'] = config()->get('name');
-        $config['service_host'] = $uri->getHost();
+        $config['service_host'] = '0.0.0.0' === $uri->getHost() ? get_local_ip() : $uri->getHost();
         $config['service_protocol'] = ('' == $uri->getScheme() ? 'http' : $uri->getScheme());
         $config['service_port'] = $uri->getPort();
         $config['service_pid'] = !file_exists(config()->get('server.options.pid_file')) ?
